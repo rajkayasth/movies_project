@@ -7,8 +7,8 @@ class DashboardPage extends BaseResponsiveView {
   Widget _buildView(BuildContext context) {
     return AutoTabsRouter(
       routes: [
-        TabOneRoute(),
-        TabTwoRoute()
+        MovieListRoute(),
+        SearchRoute()
       ],
       builder: (context, child) {
         final tabsRouter = AutoTabsRouter.of(context);

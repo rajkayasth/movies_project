@@ -2,6 +2,8 @@ import '../../utils/exports.dart';
 
 @AutoRouterConfig()
 class AppRouter extends $AppRouter {
+  AppRouter({GlobalKey<NavigatorState>? navigatorKey})
+      : super(navigatorKey: navigatorKey);
   @override
   List<AutoRoute> get routes => [
     CustomRoute(
@@ -12,13 +14,13 @@ class AppRouter extends $AppRouter {
       transitionsBuilder: TransitionsBuilders.fadeIn,
       children: [
         AutoRoute(
-          page: TabOneRoute.page,
-          path: AppPaths.tabOne,
+          page: MovieListRoute.page,
+          path: AppPaths.movieListPage,
           initial: true, // Ensure the first tab is initial
         ),
         AutoRoute(
-          page: TabTwoRoute.page,
-          path: AppPaths.tabTwo,
+          page: SearchRoute.page,
+          path: AppPaths.searchScreenPage,
         ),
       ],
     ),
