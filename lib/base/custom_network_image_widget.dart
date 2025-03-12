@@ -76,7 +76,7 @@ class CustomNetworkImageWidget extends StatelessWidget {
                   return Image.asset(placeHolderImage, fit: BoxFit.fill);
                 })
             : const CircularProgressIndicator(
-                strokeWidth: 10,
+                strokeWidth: 1,
               );
       },
       errorWidget: (

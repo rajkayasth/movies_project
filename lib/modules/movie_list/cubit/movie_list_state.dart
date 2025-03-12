@@ -5,11 +5,13 @@ class MovieListState extends Equatable {
   final BaseStateStatus status; // non-nullable
   final int? page;
   final List<Results>? movieList;
+  final List<PostApiResponse>? postList;
 
   const MovieListState({
     this.errorMsg,
     this.movieList,
     this.page,
+    this.postList,
     this.status = BaseStateStatus.initial, // Default value for status
   });
 
@@ -18,18 +20,20 @@ class MovieListState extends Equatable {
     return const MovieListState(
       errorMsg: null,
       movieList: [],
+      postList: [],
       page: 1,
       status: BaseStateStatus.initial, // Set default value to initial
     );
   }
 
   @override
-  List<dynamic> get props => [errorMsg, status, movieList, page];
+  List<dynamic> get props => [errorMsg, status, movieList, page,postList];
 
   MovieListState copyWith({
     BaseStateStatus? status, // Nullable status in copyWith
     int? page,
     List<Results>? movieList,
+    List<PostApiResponse>? postList,
     String? errorMsg,
   }) {
     return MovieListState(
@@ -37,6 +41,7 @@ class MovieListState extends Equatable {
       errorMsg: errorMsg ?? this.errorMsg,
       page: page ?? this.page,
       movieList: movieList ?? this.movieList,
+      postList: postList ?? this.postList,
     );
   }
 }

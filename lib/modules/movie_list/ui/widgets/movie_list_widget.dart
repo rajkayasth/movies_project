@@ -21,21 +21,14 @@ class MovieListWidget extends BaseResponsiveView {
   }
 
   _pageView(BuildContext ctx) {
-    return BlocBuilder<MovieListCubit, MovieListState>(
-      buildWhen: (previous, current) {
-        return true;
-      },
-      builder: (BuildContext context, state) {
-        return Scaffold(
-          appBar: AppBar(
+    return Scaffold(
+      appBar: AppBar(
 
-              backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        backgroundColor: Theme.of(ctx).colorScheme.inversePrimary,
 
-            title: Text("Movie List"),
-          ),
-          body: MovieListGridWidget(),
-        );
-      },
+        title: Text("Movie List"),
+      ),
+      body: MovieListGridWidget(),
     );
   }
 }

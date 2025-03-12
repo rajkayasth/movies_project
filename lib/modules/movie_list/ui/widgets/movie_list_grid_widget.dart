@@ -12,14 +12,15 @@ class MovieListGridWidget extends StatelessWidget {
         int crossAxisCount = (constraints.maxWidth ~/ 200).clamp(2, 4);
         return BlocBuilder<MovieListCubit, MovieListState>(
           builder: (context, state) {
-            if(state == BaseStateStatus.loading){
+            if (state.status == BaseStateStatus.loading) {
               return Center(
                 child: CircularProgressIndicator(),
               );
             }
-            if(state == BaseStateStatus.success){
+
+            if (state.status == BaseStateStatus.success) {
               return Visibility(
-                visible: (state.movieList?.isNotEmpty ?? false),
+                visible: (state.postList?.isNotEmpty ?? false),
                 replacement: Center(
                   child: Text("No Data Found"),
                 ),
@@ -29,11 +30,11 @@ class MovieListGridWidget extends StatelessWidget {
                     crossAxisCount: crossAxisCount,
                     crossAxisSpacing: 12.0,
                     mainAxisSpacing: 12.0,
-                    childAspectRatio: 0.65,
+                    childAspectRatio: 0.60,
                   ),
-                  itemCount: state.movieList?.length,
+                  itemCount: state.postList?.length,
                   itemBuilder: (context, index) {
-                    final product = state.movieList?[index];
+                    final product = state.postList?[index];
                     /* if (index >= state.products.length) {
                   return _buildShimmerEffect();
                 }*/
@@ -51,9 +52,10 @@ class MovieListGridWidget extends StatelessWidget {
                             ),
                             child: CustomNetworkImageWidget(
                               imageUrl:
-                              "${ApiConst.imageBaseUrl}${product?.posterPath}",
+                                  "https://images.unsplash.com/photo-1682114964475-89d82ea5eae4?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fHVybHxlbnwwfHwwfHx8MA%3D%3D",
                               width: double.infinity,
-                              placeHolderImage: "assets/images/ic_placeholder.jpg",
+                              placeHolderImage:
+                                  "assets/images/ic_placeholder.jpg",
                               height: 150,
                               fit: BoxFit.cover,
                             ),
@@ -66,6 +68,8 @@ class MovieListGridWidget extends StatelessWidget {
                                 children: [
                                   Text(
                                     product?.title ?? "",
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
                                     style: const TextStyle(
                                       fontSize: 16.0,
                                       fontWeight: FontWeight.bold,
@@ -73,7 +77,7 @@ class MovieListGridWidget extends StatelessWidget {
                                   ),
                                   const SizedBox(height: 4.0),
                                   Text(
-                                    product?.overview ?? "",
+                                    product?.body ?? "",
                                     style: const TextStyle(
                                       fontSize: 14.0,
                                       color: Colors.grey,
@@ -92,7 +96,7 @@ class MovieListGridWidget extends StatelessWidget {
                 ),
               );
             }
-            return  Center(
+            return Center(
               child: Text("No Data Found"),
             );
           },

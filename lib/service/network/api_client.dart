@@ -23,16 +23,16 @@ class ApiClient {
       sendTimeout: const Duration(seconds: 60),
 
       // The base URL for all the API requests
-      baseUrl: 'https://api.themoviedb.org/3/', // Set your base URL here
-
+      // baseUrl: 'https://api.themoviedb.org/3/', // Set your base URL here
+        baseUrl: "https://jsonplaceholder.typicode.com/",
       // Content type to be used for the requests
       contentType: 'application/json',
 
       // Default headers to include in every request
-      headers: <String,String >{
+     /* headers: <String,String >{
         'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwMzI3ZDU5Y2Q5ODUwNzU2YjhmMDMxMWVhZTA2MGMyMiIsIm5iZiI6MTc0MTc1NjcwOS4xMTAwMDAxLCJzdWIiOiI2N2QxMTkyNTQzNGM5OGM4ZWM4MTVlMWMiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.-ZABwXLTrEKSR56nZX8zdk-UDw7GJDhLkaFlCDnVGjs', // Placeholder for authorization key (if needed)
         'accept': 'application/json',
-      },
+      },*/
     );
     _dio?.options = baseOption;
 
