@@ -58,6 +58,18 @@ class ApiClient {
     );
   }
 
+  Future<void> _showLoading(bool showLoader) async {
+    if (showLoader) {
+      await EasyLoading.show();
+    }
+  }
+
+  Future<void> _dismissLoading(bool dismissLoader) async {
+    if (dismissLoader) {
+      await EasyLoading.dismiss();
+    }
+  }
+
   /// Function to check the internet connection
   FutureOr<bool> _checkInternet() async {
     List<ConnectivityResult> connectivityResult =
@@ -100,6 +112,8 @@ class ApiClient {
     }
 
     try {
+      await _showLoading(true);
+
       Response? response = await _dio?.get(
         endUrl,
         queryParameters: params,
@@ -111,8 +125,11 @@ class ApiClient {
           },
         ),
       );
+      await _dismissLoading(true);
+
       return response;
     } on DioException catch (e) {
+      await _dismissLoading(true);
       String errorMessage = 'Failed to load data: ${e.message}';
       await _showErrorDialog(errorMessage); // Show error dialog
       throw Exception(errorMessage);

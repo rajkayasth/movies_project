@@ -17,9 +17,7 @@ class MovieListGridWidget extends StatelessWidget {
           childWidget: BlocBuilder<MovieListCubit, MovieListState>(
             builder: (context, state) {
               if (state.status == BaseStateStatus.loading && state.page == 1) {
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
+                return SizedBox.shrink();
               }
 
               if (state.isLoadingMore == false &&
@@ -126,7 +124,7 @@ class MovieListGridWidget extends StatelessWidget {
                         padding: const EdgeInsets.all(8.0),
                         child: CircularProgressIndicator(),
                       ),
-                    )
+                    ),
                   ],
                 ),
               );

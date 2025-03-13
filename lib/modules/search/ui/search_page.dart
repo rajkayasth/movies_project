@@ -7,8 +7,10 @@ class SearchPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (ctx) => TabTwoCubit.instance(),
-      child: const TabTwoWidget(
+      create: (ctx) => SearchCubit.instance(
+        repository: SearchRepositoryImpl()
+      ),
+      child: const SearchWidget(
       ),
     );
   }
