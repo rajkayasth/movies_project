@@ -23,19 +23,18 @@ class ApiClient {
       sendTimeout: const Duration(seconds: 60),
 
       // The base URL for all the API requests
-      // baseUrl: 'https://api.themoviedb.org/3/', // Set your base URL here
-        baseUrl: "https://jsonplaceholder.typicode.com/",
-      // Content type to be used for the requests
-      contentType: 'application/json',
-
-      // Default headers to include in every request
-     /* headers: <String,String >{
-        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwMzI3ZDU5Y2Q5ODUwNzU2YjhmMDMxMWVhZTA2MGMyMiIsIm5iZiI6MTc0MTc1NjcwOS4xMTAwMDAxLCJzdWIiOiI2N2QxMTkyNTQzNGM5OGM4ZWM4MTVlMWMiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.-ZABwXLTrEKSR56nZX8zdk-UDw7GJDhLkaFlCDnVGjs', // Placeholder for authorization key (if needed)
-        'accept': 'application/json',
-      },*/
+      baseUrl: 'https://api.themoviedb.org/3',
+      // Set your base URL here
+      // baseUrl: "https://jsonplaceholder.typicode.com/",
     );
     _dio?.options = baseOption;
-
+    _dio?.interceptors.add(
+      AwesomeDioInterceptor(
+        logRequestHeaders: true,
+        logRequestTimeout: true,
+        logResponseHeaders: true,
+      ),
+    );
   }
 
   // Function to show error dialog
@@ -61,7 +60,8 @@ class ApiClient {
 
   /// Function to check the internet connection
   FutureOr<bool> _checkInternet() async {
-    List<ConnectivityResult> connectivityResult = await Connectivity().checkConnectivity();
+    List<ConnectivityResult> connectivityResult =
+        await Connectivity().checkConnectivity();
     if (connectivityResult.contains(ConnectivityResult.mobile)) {
       return true;
     } else if (connectivityResult.contains(ConnectivityResult.wifi)) {
@@ -91,7 +91,8 @@ class ApiClient {
     );
   }
 
-  Future<Response?> get(String endUrl, {Map<String, dynamic>? params, CancelToken? cancelToken}) async {
+  Future<Response?> get(String endUrl,
+      {Map<String, dynamic>? params, CancelToken? cancelToken}) async {
     bool isConnected = await _checkInternet();
     if (!isConnected) {
       await _showNoInternetDialog();
@@ -102,6 +103,13 @@ class ApiClient {
       Response? response = await _dio?.get(
         endUrl,
         queryParameters: params,
+        options: Options(
+          headers: {
+            'Authorization':
+                'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwMzI3ZDU5Y2Q5ODUwNzU2YjhmMDMxMWVhZTA2MGMyMiIsIm5iZiI6MTc0MTc1NjcwOS4xMTAwMDAxLCJzdWIiOiI2N2QxMTkyNTQzNGM5OGM4ZWM4MTVlMWMiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.-ZABwXLTrEKSR56nZX8zdk-UDw7GJDhLkaFlCDnVGjs',
+            'accept': 'application/json',
+          },
+        ),
       );
       return response;
     } on DioException catch (e) {
@@ -111,7 +119,10 @@ class ApiClient {
     }
   }
 
-  Future<Response> post(String endUrl, {Map<String, dynamic>? data, Map<String, dynamic>? params, CancelToken? cancelToken}) async {
+  Future<Response> post(String endUrl,
+      {Map<String, dynamic>? data,
+      Map<String, dynamic>? params,
+      CancelToken? cancelToken}) async {
     bool isConnected = await _checkInternet();
     if (!isConnected) {
       await _showNoInternetDialog();
@@ -133,7 +144,10 @@ class ApiClient {
     }
   }
 
-  Future<Response> put(String endUrl, {Map<String, dynamic>? data, Map<String, dynamic>? params, CancelToken? cancelToken}) async {
+  Future<Response> put(String endUrl,
+      {Map<String, dynamic>? data,
+      Map<String, dynamic>? params,
+      CancelToken? cancelToken}) async {
     bool isConnected = await _checkInternet();
     if (!isConnected) {
       await _showNoInternetDialog();
@@ -155,7 +169,10 @@ class ApiClient {
     }
   }
 
-  Future<Response> delete(String endUrl, {Map<String, dynamic>? data, Map<String, dynamic>? params, CancelToken? cancelToken}) async {
+  Future<Response> delete(String endUrl,
+      {Map<String, dynamic>? data,
+      Map<String, dynamic>? params,
+      CancelToken? cancelToken}) async {
     bool isConnected = await _checkInternet();
     if (!isConnected) {
       await _showNoInternetDialog();

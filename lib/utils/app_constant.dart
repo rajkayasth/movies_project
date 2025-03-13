@@ -4,6 +4,8 @@ abstract class AppConstant {
   static const double smallDeviceHeight = 800;
   static const double webPixelWidth = 1200;
   static const double mobilePixelWidth = 600;
+  /// The maximum scrollable extent, typically for scrollable lists or views.
+  static const double maxScrollExtent = 1500;
 
 }
 
