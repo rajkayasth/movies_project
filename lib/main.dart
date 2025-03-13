@@ -6,9 +6,9 @@ void main() {
 
 void mainDelegate() => AppInitializer.init(
       () async {
-    runApp(const  MyApp());
-  },
-);
+        runApp(const MyApp());
+      },
+    );
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -29,29 +29,36 @@ class MyApp extends StatelessWidget {
       ..dismissOnTap = false;
   }
 
-
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     AppRouter appRouter = GetIt.instance<AppRouter>();
 
-    return MaterialApp.router(
-      builder: EasyLoading.init(
-        builder: (BuildContext context, Widget? child) {
-          configLoader();
-          return child ?? const SizedBox();
-        },
-      ),
-      theme: ThemeData(
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<InternetCubit>(
+          lazy: false,
+          create: (BuildContext context) => InternetCubit(Connectivity()),
+        ),
 
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+      ],
+      child: MaterialApp.router(
+        builder: EasyLoading.init(
+          builder: (BuildContext context, Widget? child) {
+            configLoader();
+            return child ?? const SizedBox();
+          },
+        ),
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          useMaterial3: true,
+        ),
+        debugShowCheckedModeBanner: false,
+        // routerDelegate: appRouter.delegate(),
+        routerConfig: appRouter.config(),
+        // routeInformationParser: appRouter.defaultRouteParser(),
+        title: 'Flutter Demo',
       ),
-      debugShowCheckedModeBanner: false,
-      // routerDelegate: appRouter.delegate(),
-      routerConfig: appRouter.config(),
-      // routeInformationParser: appRouter.defaultRouteParser(),
-      title: 'Flutter Demo',
     );
   }
 

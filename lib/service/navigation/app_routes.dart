@@ -24,5 +24,11 @@ class AppRouter extends $AppRouter {
         ),
       ],
     ),
+    CustomRoute(
+      page: MovieDetailRoute.page,
+      path: AppPaths.movieListDetailPage,
+      maintainState: true,
+      transitionsBuilder: TransitionsBuilders.slideLeft,
+    ),
   ];
 }

@@ -146,8 +146,5 @@ class MovieListCubit extends Cubit<MovieListState> {
     }
   }
 
-  ///handle redirection
-  void handleRedirection(BuildContext context) {
-    context.router.pushNamed(AppPaths.tabOneDetail);
-  }
+
 }

@@ -7,7 +7,8 @@ class MovieListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        create: (c) => MovieListCubit(),
-        child: const MovieListWidget());
+      create: (c) => MovieListCubit(),
+      child: const MovieListWidget(),
+    );
   }
 }
